@@ -66,5 +66,4 @@ const makeCalendar = () => {
     }
 };
 
-
 module.exports = {makeCalendar, getDayOfTheWeek};
