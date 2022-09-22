@@ -58,7 +58,7 @@ const makeCalendar = () => {
                 
                const weekday = getDayOfTheWeek(year, month, dayInMonth);
 
-                console.log(`${month}-${weekday}-${year} is a ${weekday}.`);
+                console.log(`${month}-${dayInMonth}-${year} is a ${weekday}.`);
 
                 break
             }
