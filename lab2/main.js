@@ -4,9 +4,16 @@ const labTwo = require('./lab-two.js');
 
 const months = dateConstants.months;
 
-const onInvalidInput = type => {
-    console.log("Your input is invalid. Please try again.");
-    askQuestion(type);
+const onInvalidInput = (type, value) => {
+    if (type == "year") {
+        console.log(`${value} is not a valid year.`);
+    } else if (type == "month") {
+        console.log(`${value} is not a valid month.`);
+    } else if (type == "day") {
+        console.log(`${value} is not a valid day.`);
+    }
+
+    return askQuestion(type);
 };
 
 const askQuestion = type => {
@@ -18,38 +25,49 @@ const askQuestion = type => {
         value = readlineSync.question("What month? ");
     } else if (type == "day") {
         value = readlineSync.question("What day? ");
-    } else {
-        console.warn(`${type} is not a valid type.`)
-        return 0;
     }
 
-    if (type == "year" || type == "day") {
-        if (isNaN(Number(value))) {
-            onInvalidInput(type);
+    if (type == "year") {
+        let valueInNumber = Number(value);
+
+        while (isNaN(valueInNumber) || valueInNumber % 1 != 0) { // if value isnt a number or value has a decimal
+            value = onInvalidInput(type, value);
+            valueInNumber = Number(value);
         }
+        
+        value = valueInNumber; // removes leading 0s if there are any
+
+    } else if (type == "month") {
+        let lowerCaseMonth = value.toLowerCase(); // get lowercase version of month
+        let formattedMonth = lowerCaseMonth.charAt(0).toUpperCase() + lowerCaseMonth.slice(1); // capitalize first letter in lowercase month
+        
+        while (!months.includes(formattedMonth)) { // if it's not a valid month
+            value = onInvalidInput(type, value);
+
+            lowerCaseMonth = value.toLowerCase();
+            formattedMonth = lowerCaseMonth.charAt(0).toUpperCase() + lowerCaseMonth.slice(1);
+        }
+
+        value = formattedMonth;
+
+    } else if (type == "day") {
+        let valueInNumber = Number(value);
+
+        while (isNaN(valueInNumber) || valueInNumber <= 0 || valueInNumber > 31 || valueInNumber % 1 != 0) { // if value isnt a number or value has a decimal
+            value = onInvalidInput(type, value);
+            valueInNumber = Number(value);
+        }
+
+        value = valueInNumber; // removes leading 0s if there are any
     }
 
-    
+    return value;
 };
 
 const getDayOfTheWeekForUserDate = () => {
-    let year = 
-    if (isNaN(Number(year))) {
-        year = readlineSync.question("The value you have entered is not an integer. What year? ");
-    }
-    let month = 
-
-    const lowerCaseMonth = month.toLowerCase() // get lowercase version of month
-    let formattedMonth = lowerCaseMonth.charAt(0).toUpperCase() + lowerCaseMonth.slice(1); // capitalize first letter in lowercase month
-
-    if (!months.includes(formattedMonth)) {
-        month = readlineSync.question("The value you have entered is not a month. What month? ")
-    }
-
-    let day = 
-    if (isNaN(Number(day))) {
-        year = readlineSync.question("The value you have entered is not an integer. What day? ");
-    }
+    const year = askQuestion("year");
+    const month = askQuestion("month");
+    const day = askQuestion("day");
 
     const weekday = labTwo.getDayOfTheWeek(Number(year), month, Number(day));
     
