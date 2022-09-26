@@ -2,7 +2,7 @@ const process = require('process');
 const fs = require('fs');
 const mathHelpers = require('./mathHelpers.js');
 
-const dirName = "dataPoints";
+const originalDirName = "dataPoints";
 const formattedArgs = process.argv.slice(2); // remove the first 2 args as they are uneeded
 
 const checkDir = (dirName) => {
@@ -47,7 +47,7 @@ const processInput = (args, dirName) => {
 };
 
 if (formattedArgs.length == 4) {
-    processInput(formattedArgs, dirName);
+    processInput(formattedArgs, originalDirName);
 } else {
     console.log("You did provided too many or not enough arguments.")
 }
