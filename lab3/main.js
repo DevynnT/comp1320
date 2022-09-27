@@ -1,7 +1,6 @@
 const process = require('process');
 const fs = require('fs');
 const mathHelpers = require('./mathHelpers.js');
-const { dir } = require('console');
 
 const originalDirName = "dataPoints";
 const pointsPath = "/points.txt";
