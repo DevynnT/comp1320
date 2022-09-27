@@ -7,7 +7,7 @@ const originalDirName = "dataPoints";
 const pointsPath = "/points.txt";
 const formattedArgs = process.argv.slice(2); // remove the first 2 args as they are uneeded
 
-const appendToDir = (dirName, appendData) => {
+const appendToFile = (dirName, appendData) => {
     fs.appendFile(dirName + pointsPath, "\n" + appendData, (err) => {
         if (err) {
             console.log(err);
@@ -22,7 +22,7 @@ const writeToDir = (dirName, saveData, appendData) => {
         } else {
             console.log("Content saved");
 
-            appendToDir(dirName, appendData);
+            appendToFile(dirName, appendData);
         }
     })
 };
