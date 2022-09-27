@@ -32,7 +32,7 @@ const createDir = (dirName, saveData, appendData) => {
         if (err) {
             const newDirName = "temp_" + err.path;
 
-            console.log(`Folder ${dirName} already exists. Creating a new folder for you called ${newDirName}.`)
+            console.log(`Folder ${dirName} already exists. Creating a new folder for you called ${newDirName}`)
 
             createDir(newDirName, saveData, appendData);
         } else {
@@ -56,7 +56,7 @@ if (formattedArgs.length == 4) {
 
     for (const element of formattedArgs) {
         if (isNaN(parseInt(element))) { // if arg isnt a number
-            console.log(`${element} is not a number. Please try again.`);
+            console.log(`${element} is not a number, please try again`);
 
             valid = false;
 
