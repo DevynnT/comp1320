@@ -57,5 +57,5 @@ if (formattedArgs.length == 4) {
         processInput(formattedArgs, originalDirName);
     }
 } else {
-    console.log("You did provided too many or not enough arguments.")
+    console.log("You provided too many or not enough arguments.")
 }
