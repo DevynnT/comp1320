@@ -42,9 +42,9 @@ const createDir = (dirName, saveData, appendData) => {
 };
 
 const processInput = (args, dirName) => {
-    const point1 = `${args[0]},${args[2]}`;
-    const point2 = `${args[1]},${args[3]}`;
-    const calculatedDistance = mathHelpers.distance(parseInt(args[0]), parseInt(args[2]), parseInt(args[1]), parseInt(args[3])); // the elements inside args are strings so convert to integer
+    const point1 = `${args[0]},${args[1]}`;
+    const point2 = `${args[2]},${args[3]}`;
+    const calculatedDistance = mathHelpers.distance(parseInt(args[0]), parseInt(args[1]), parseInt(args[2]), parseInt(args[3])); // the elements inside args are strings so convert to integer
     const appendData = `The distance between your two points: (${point1}), (${point2}) is ${calculatedDistance}`;
     const saveData = `User Input: ${args[0]} ${args[1]} ${args[2]} ${args[3]}`;
 
