@@ -8,4 +8,4 @@ const distance = (numX1, numY1, numX2, numY2) => {
     return squareRoot(squaredResult);
 };
 
-module.exports = {distance};
+module.exports = { distance };
