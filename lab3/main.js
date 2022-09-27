@@ -11,7 +11,7 @@ const writeToDir = (dirName, data) => {
         if (err) {
             console.log(err);
         } else {
-            console.log("Content saved")
+            console.log("Content saved");
         }
     })
 };
@@ -21,7 +21,7 @@ const createDir = (dirName, data) => {
         if (err) {
             const newDirName = "temp_" + err.path;
 
-            console.log(`Folder ${dirName} already exists. Creating a new folder for you called ${newDirName}`)
+            console.log(`Folder ${dirName} already exists. Creating a new folder for you called ${newDirName}.`)
 
             createDir(newDirName, data);
         } else {
@@ -41,7 +41,21 @@ const processInput = (args, dirName) => {
 };
 
 if (formattedArgs.length == 4) {
-    processInput(formattedArgs, originalDirName);
+    let valid = true;
+
+    for (const element of formattedArgs) {
+        if (isNaN(parseInt(element))) { // if arg isnt a number
+            console.log(`${element} is not a number. Please try again.`);
+
+            valid = false;
+
+            break
+        }
+    }
+
+    if (valid) {
+        processInput(formattedArgs, originalDirName);
+    }
 } else {
     console.log("You did provided too many or not enough arguments.")
 }
