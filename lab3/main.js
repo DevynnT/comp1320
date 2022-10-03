@@ -1,13 +1,15 @@
 const process = require('process');
 const fs = require('fs');
+const path = require('path');
+const os = require('os');
 const mathHelpers = require('./mathHelpers.js');
+const { dirname } = require('path');
 
 const originalDirName = "dataPoints";
-const pointsPath = "/points.txt";
 const formattedArgs = process.argv.slice(2); // remove the first 2 args as they are uneeded
 
 const appendToFile = (dirName, appendData) => {
-    fs.appendFile(dirName + pointsPath, "\n" + appendData, (err) => {
+    fs.appendFile(dirName, os.EOL + appendData, (err) => {
         if (err) {
             console.log(err);
         }
@@ -15,7 +17,7 @@ const appendToFile = (dirName, appendData) => {
 };
 
 const writeToDir = (dirName, saveData, appendData) => {
-    fs.writeFile(dirName + pointsPath, saveData, "utf-8", (err) => {
+    fs.writeFile(dirName, saveData, "utf-8", (err) => {
         if (err) {
             console.log(err);
         } else {
@@ -27,15 +29,19 @@ const writeToDir = (dirName, saveData, appendData) => {
 };
 
 const createDir = (dirName, saveData, appendData) => {
+    const filePath = path.join(__dirname, dirName, "points.txt");
+
     fs.mkdir(dirName, (err) => {
         if (err) {
-            const newDirName = "temp_" + err.path;
+            if (err.code == "EEXIST") {
+                const newDirName = "temp_" + err.path;
 
-            console.log(`Folder ${dirName} already exists. Creating a new folder for you called ${newDirName}`)
-
-            createDir(newDirName, saveData, appendData);
+                console.log(`Folder ${dirName} already exists. Creating a new folder for you called ${newDirName}`)
+    
+                createDir(newDirName, saveData, appendData);
+            }
         } else {
-            writeToDir(dirName, saveData, appendData);
+            writeToDir(filePath, saveData, appendData);
         }
     })
 };
